@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <h1>Write Article</h1>
+
+    <form action="{{ path('writeArticle') }}" method="POST">
+        Title <br />
+        <input type="text" name="title" id="title" /> <br />
+        Text <br />
+        <textarea name="content" id="content" style="width: 300px; height: 150px;"></textarea>
+        <br />
+        <input type="submit" value="Save" />
+    </form>
+</body>

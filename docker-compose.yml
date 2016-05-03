@@ -1,0 +1,22 @@
+version: '2'
+networks:
+  my-app:
+
+services:
+  app:
+    image: fiunchinho/apache-php
+    volumes:
+      - ".:/app"
+    ports:
+      - "8081:80"
+    networks:
+      - my-app
+
+  mysql:
+    image: mysql
+    networks:
+      - my-app
+    volumes:
+      - "./resources:/docker-entrypoint-initdb.d"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
