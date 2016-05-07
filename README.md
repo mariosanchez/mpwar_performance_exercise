@@ -8,7 +8,7 @@ Your company receives a new project that needs some work done. The client has a 
 Your client also asks you to improve the overall performance of the page. They expect to grow in traffic, and their servers are almost at full capacity already. Change everything that is needed to make the blog work with multiple servers behind a load balancer:
 - Sessions should be saved in a distributed way.
 - Database queries results should be stored in Redis.
-- Create a CloudFront distribution that serves the static content files like images, css or css.
+- Create a CloudFront distribution that serves the static content files like images, css or js.
 - Use HTTP Cache to let browsers, proxies and gateway servers like CloudFront cache your dynamic pages.
 
 ## Remember
