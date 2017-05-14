@@ -1,19 +1,22 @@
-<!DOCTYPE html>
-	{{ include('header.twig', {title: 'Blog'}) }}
-	<body>
-		{% for article in articles %}
-			<h1><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h1>
-			<h3>by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}</h3>
-			<p>
+{% extends "base.twig" %}
+
+{% block title %}Blog{% endblock %}
+{% block head %}
+	{{ parent() }}
+{% endblock %}
+{% block content %}
+	{% for article in articles %}
+		<h1><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h1>
+		<h3>by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}</h3>
+		<p>
 			{% if article.content | length > 100 %}
 				{{ article.content | slice(0,100) }}
 				<a href="{{ path('article', {article_id: article.id}) }}">more&hellip;</a>
 			{% else %}
-					{{ article.content }}
+				{{ article.content }}
 			{% endif %}
-			</p>
-		{% else %}
-			<h1>There are no articles to show</h1>
-		{% endfor %}
-	</body>
-</html>
+		</p>
+	{% else %}
+		<h1>There are no articles to show</h1>
+	{% endfor %}
+{% endblock %}

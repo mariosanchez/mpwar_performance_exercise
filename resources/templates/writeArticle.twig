@@ -1,6 +1,10 @@
-<!DOCTYPE html>
-{{ include('header.twig', {title: 'Blog - Write Article'}) }}
-<body>
+{% extends "base.twig" %}
+
+{% block title %}Blog - Write Article{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
     <h1>Write Article</h1>
 
     <form action="{{ path('writeArticle') }}" method="POST">
@@ -11,4 +15,4 @@
         <br />
         <input type="submit" value="Save" />
     </form>
-</body>
+{% endblock %}

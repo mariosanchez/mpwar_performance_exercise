@@ -26,5 +26,5 @@ $app['orm.em.options'] = [
 ];
 
 $app['cdn'] = [
-  'url' => '.',
+  'url' => 'http://localhost/web/',
 ];

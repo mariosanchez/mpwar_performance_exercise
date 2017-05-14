@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <meta charset="UTF-8">
+            <title>Blog - {% block title %}{% endblock %}</title>
+
+            <link rel="stylesheet" href="{{ app.cdn.url }}/assets/components/bootstrap/dist/css/bootstrap.min.css">
+        {% endblock %}
+    </head>
+    <body>
+        <div id="content">
+            {% include 'nav.twig' %}
+            <div class="container" style="padding-top: 75px;">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <div id="footer">
+            {% block footer %}
+            {% endblock %}
+        </div>
+        {% block scripts %}
+            <link rel="stylesheet" href="{{ app.cdn.url }}/assets/components/bootstrap/dist/js/bootstrap.min.js">
+        {% endblock %}
+    </body>
+</html>

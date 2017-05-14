@@ -25,6 +25,8 @@ $app->error(function (\Exception $e, $code) use ($app) {
         return null;
     }
 
+    echo var_dump($e->getMessage());
+    die();
     // 404.html, or 40x.html, or 4xx.html, or error.html
     $templates = array(
         'errors/'.$code.'.html',

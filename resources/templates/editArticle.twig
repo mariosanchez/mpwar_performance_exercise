@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-    {{ include('header.twig', {title: 'Blog - Edit Article'}) }}
-    <body>
-        <form method="POST" action="{{ path('editArticle', {article_id: article.id}) }}">
-            Title <br />
-            <input type="text" name="title" id="title" value="{{ article.title }}" /> <br />
-            <input type="hidden" name="article_id" id="article_id" value="{{ article.id }}" /> <br />
-            Text <br />
-            <textarea name="content" id="content" style="width: 300px; height: 150px;"> {{ article.content }}</textarea>
-            <br />
-            <input type="submit" value="Save" />
-        </form>
-    </body>
-</html>
+{% extends "base.twig" %}
+
+{% block title %}Blog - Edit Article{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <h1>Edit - <a href="{{ path('article', {article_id: article.id}) }}">{{ article.title }}</a></h1>
+
+    <form method="POST" action="{{ path('editArticle', {article_id: article.id}) }}">
+        Title <br />
+        <input type="text" name="title" id="title" value="{{ article.title }}" /> <br />
+        <input type="hidden" name="article_id" id="article_id" value="{{ article.id }}" /> <br />
+        Text <br />
+        <textarea name="content" id="content" style="width: 300px; height: 150px;"> {{ article.content }}</textarea>
+        <br />
+        <input type="submit" value="Save" />
+    </form>
+{% endblock %}
