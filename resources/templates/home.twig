@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-	<meta charset="UTF-8">
-	<head>
-		<title>Blog</title>
-	</head>
+	{{ include('header.twig', {title: 'Blog'}) }}
 	<body>
 		{% for article in articles %}
 			<h1><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h1>

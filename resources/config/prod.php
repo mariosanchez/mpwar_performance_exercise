@@ -24,3 +24,7 @@ $app['orm.em.options'] = [
         ],
     ]
 ];
+
+$app['cdn'] = [
+  'url' => '.',
+];
