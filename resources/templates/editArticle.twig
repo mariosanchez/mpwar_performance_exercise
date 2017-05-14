@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <meta charset="UTF-8">
+    {{ include('header.twig', {title: 'Blog - Edit Article'}) }}
     <body>
         <form method="POST" action="{{ path('editArticle', {article_id: article.id}) }}">
             Title <br />
