@@ -10,4 +10,11 @@
 	<p>
 		{{ article.content }}
 	</p>
+
+	{% if app.session.get('author_id') == article.author.id %}
+	<p>
+		<a href="{{ path('editArticle', {article_id: article.id}) }}">Edit</a>
+	</p>
+	{% endif %}
+
 {% endblock %}
