@@ -54,7 +54,7 @@ class DomainServiceProvider implements ServiceProviderInterface
         };
 
         $app['controllers.home'] = function () use ($app) {
-            return new \Performance\Controller\HomeController($app['twig'], $app['useCases.listArticles']);
+            return new \Performance\Controller\HomeController($app['twig'], $app['useCases.listArticles'], $app['cache']);
         };
     }
 }
