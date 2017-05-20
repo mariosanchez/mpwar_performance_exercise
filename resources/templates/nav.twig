@@ -9,6 +9,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if app.session.get('author_id') %}
+                    <img src="{% if app.session.get('author_photo') %}{{ app.session.get('author_photo') }}{% else %}https://s3.eu-west-2.amazonaws.com/execice/default-user-image.png{% endif %}" width="40px" height="40px" style="margin: 5px;"/>
                     <li><a href="{{ path('logout') }}">Logout</a></li>
                 {% else %}
                     <li><a href="{{ path('login') }}">Login</a></li>

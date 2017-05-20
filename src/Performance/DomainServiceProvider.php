@@ -10,7 +10,7 @@ class DomainServiceProvider implements ServiceProviderInterface
     public function register(Container $app)
     {
         $app['useCases.signUp'] = function () use ($app) {
-            return new \Performance\Domain\UseCase\SignUp($app['orm.em']->getRepository('Performance\Domain\Author'));
+            return new \Performance\Domain\UseCase\SignUp($app['orm.em']->getRepository('Performance\Domain\Author'), $app['s3Filesystem']);
         };
 
         $app['useCases.login'] = function () use ($app) {

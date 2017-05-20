@@ -40,8 +40,9 @@ class RegisterController
     {
     	$username = $request->request->get('username');
     	$password = $request->request->get('password');
+        $profilePicture = $request->files->get('profile-picture');
 
-    	$this->useCase->execute($username, $password);
+    	$this->useCase->execute($username, $password, $profilePicture);
 
         return new RedirectResponse($this->url_generator->generate('login'));
     }

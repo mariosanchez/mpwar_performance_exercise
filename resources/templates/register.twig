@@ -7,13 +7,17 @@
 {% block content %}
     <h1>Register</h1>
 
-    <form action="{{ path('register') }}" method="POST">
+    <form action="{{ path('register') }}" method="POST" enctype="multipart/form-data">
         <fieldset>
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required />
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required />
+            <p>
+                <label for="profile-picture">Picture</label>
+                <input type="file" id="profile-picture" name="profile-picture" class="form-control" required />
+            </p>
         </fieldset>
 
         <fieldset class="form-actions">
