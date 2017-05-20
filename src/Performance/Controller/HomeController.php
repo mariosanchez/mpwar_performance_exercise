@@ -8,6 +8,7 @@ use Moust\Silex\Cache\RedisCache;
 
 class HomeController
 {
+    const REDIS_CACHE_TTL = 60;
     /**
      * @var \Twig_Environment
      */
@@ -27,7 +28,10 @@ class HomeController
 
         if(empty($articles)) {
             $articles = $this->useCase->execute();
-            $this->cache->store('articles', $articles, 60);
+
+            array_map(function($article) {
+                $this->cache->store('articles:' . $article->getId(), $article, self::REDIS_CACHE_TTL);
+            }, $articles);
         }
 
         return new Response($this->template->render('home.twig', ['articles' => $articles]));
