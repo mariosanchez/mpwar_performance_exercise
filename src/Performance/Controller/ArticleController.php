@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Performance\Domain\UseCase\ReadArticle;
 use Moust\Silex\Cache\RedisCache;
+use Predis\Client as PredisClient;
 
 class ArticleController
 {
@@ -24,14 +25,18 @@ class ArticleController
      */
     private $cache;
 
+    private $rankingRedisClient;
+
     public function __construct(
         \Twig_Environment $templating,
         ReadArticle $useCase,
-        RedisCache $cache
+        RedisCache $cache,
+        PredisClient $rankingRedisClient
     ) {
         $this->template = $templating;
         $this->useCase = $useCase;
         $this->cache = $cache;
+        $this->rankingRedisClient = $rankingRedisClient;
     }
 
     public function get($article_id)
@@ -46,6 +51,8 @@ class ArticleController
         if (!$article) {
             throw new HttpException(404, "Article $article_id does not exist.");
         }
+
+        $this->rankingRedisClient->zincrby('articleRangking', 1, $article_id);
 
         return new Response($this->template->render('article.twig', ['article' => $article]));
     }

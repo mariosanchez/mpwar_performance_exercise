@@ -33,6 +33,10 @@ $app->register(new ClientsServiceProvider(), [
             'host' => '127.0.0.1',
             'database' => 2,
         ],
+        'rankings' => [
+            'host' => '127.0.0.1',
+            'database' => 3,
+        ],
     ],
 ]);
 $app->register(new CacheServiceProvider(), array(

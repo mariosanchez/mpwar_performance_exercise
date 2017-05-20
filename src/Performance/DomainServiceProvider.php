@@ -33,8 +33,12 @@ class DomainServiceProvider implements ServiceProviderInterface
             return new \Performance\Domain\UseCase\ListArticles($app['orm.em']->getRepository('Performance\Domain\Article'));
         };
 
+        $app['useCases.listTopVisitsArticles'] = function () use ($app) {
+            return new \Performance\Domain\UseCase\ListTopVisitsArticles($app['orm.em']->getRepository('Performance\Domain\Article'), $app['predis']['rankings']);
+        };
+
         $app['controllers.readArticle'] = function () use ($app) {
-            return new \Performance\Controller\ArticleController($app['twig'], $app['useCases.readArticle'], $app['cache']);
+            return new \Performance\Controller\ArticleController($app['twig'], $app['useCases.readArticle'], $app['cache'], $app['predis']['rankings']);
         };
 
         $app['controllers.writeArticle'] = function () use ($app) {
@@ -54,7 +58,7 @@ class DomainServiceProvider implements ServiceProviderInterface
         };
 
         $app['controllers.home'] = function () use ($app) {
-            return new \Performance\Controller\HomeController($app['twig'], $app['useCases.listArticles'], $app['cache']);
+            return new \Performance\Controller\HomeController($app['twig'], $app['useCases.listArticles'], $app['useCases.listTopVisitsArticles'], $app['cache']);
         };
     }
 }

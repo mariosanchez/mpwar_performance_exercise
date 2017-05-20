@@ -5,6 +5,24 @@
 	{{ parent() }}
 {% endblock %}
 {% block content %}
+	<div class="row">
+		<div class="col-lg-6">
+			<h1>Global Most Visited Posts Ranking</h1>
+			<ol>
+				{% for topVisitsArticle in topVisitsArticles %}
+					<li>
+						<b><a href="{{ path('article', {article_id: topVisitsArticle.id}) }}">
+							{{ topVisitsArticle.title | title }}
+						</a></b>  by {{ topVisitsArticle.author.username }}
+						, on {{ topVisitsArticle.date | date("d/m/Y H:i") }}
+					</li>
+				{% endfor %}
+			</ol>
+		</div>
+		<div class="col-lg-6">
+
+		</div>
+	</div>
 	{% for article in articles %}
 		<h1><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h1>
 		<h3>by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}</h3>
