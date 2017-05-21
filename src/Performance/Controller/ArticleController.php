@@ -54,6 +54,12 @@ class ArticleController
 
         $this->rankingRedisClient->zincrby('articleRangking', 1, $article_id);
 
-        return new Response($this->template->render('article.twig', ['article' => $article]));
+        return new Response(
+            $this->template->render('article.twig', ['article' => $article])
+            , 200
+            , array(
+                'Cache-Control' => 'public, max-age=31536000',
+            )
+        );
     }
 }

@@ -13,6 +13,7 @@ use Moust\Silex\Provider\CacheServiceProvider;
 use Aws\S3\S3Client;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Filesystem;
+use Silex\Provider\HttpCacheServiceProvider;
 
 $app = new Application();
 
@@ -63,5 +64,9 @@ $app['s3Filesystem'] = function ($c) {
 
     return new Filesystem($adapter);
 };
+
+$app->register(new HttpCacheServiceProvider(), array(
+    'http_cache.cache_dir' => __DIR__.'/cache/',
+));
 
 return $app;

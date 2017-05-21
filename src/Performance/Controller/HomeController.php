@@ -64,6 +64,8 @@ class HomeController
                 'articles' => $articles,
                 'topVisitsArticles' => $topVisitsArticles,
             ]
+        ), 200, array(
+            'Cache-Control' => 'public, max-age=31536000',
         ));
 
     }
