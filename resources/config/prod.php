@@ -7,7 +7,7 @@ $app['twig.options'] = [];
 
 $app['db.options'] = [
     "driver"    => "pdo_mysql",
-    "host"      => 'localhost',
+    "host"      => 'mysql',
     "user"      => 'root',
     "password"  => 'root',
     "dbname"    => 'mpwar_performance_blog',

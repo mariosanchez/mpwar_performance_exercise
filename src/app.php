@@ -27,15 +27,15 @@ $app->register(new DoctrineOrmServiceProvider);
 $app->register(new ClientsServiceProvider(), [
     'predis.clients' => [
         'sessions' => [
-            'host' => '127.0.0.1',
+            'host' => 'redis',
             'database' => 1,
         ],
         'cache' => [
-            'host' => '127.0.0.1',
+            'host' => 'redis',
             'database' => 2,
         ],
         'rankings' => [
-            'host' => '127.0.0.1',
+            'host' => 'redis',
             'database' => 3,
         ],
     ],
