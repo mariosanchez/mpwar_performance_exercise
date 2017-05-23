@@ -20,7 +20,17 @@
 			</ol>
 		</div>
 		<div class="col-lg-6">
-
+			<h1>Your Most Visited Posts Ranking</h1>
+			<ol>
+				{% for currentUserTopVisitsArticle in currentUserTopVisitsArticles %}
+					<li>
+						<b><a href="{{ path('article', {article_id: currentUserTopVisitsArticle.id}) }}">
+								{{ currentUserTopVisitsArticle.title | title }}
+							</a></b>  by {{ currentUserTopVisitsArticle.author.username }}
+						, on {{ currentUserTopVisitsArticle.date | date("d/m/Y H:i") }}
+					</li>
+				{% endfor %}
+			</ol>
 		</div>
 	</div>
 	{% for article in articles %}

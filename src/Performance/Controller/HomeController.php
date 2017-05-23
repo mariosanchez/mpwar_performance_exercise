@@ -5,6 +5,7 @@ namespace Performance\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Performance\Domain\UseCase\ListArticles;
 use Performance\Domain\UseCase\ListTopVisitsArticles;
+use Performance\Domain\UseCase\ListCurrentUserTopVisitsArticles;
 use Moust\Silex\Cache\RedisCache;
 
 class HomeController
@@ -16,31 +17,39 @@ class HomeController
 	private $template;
 
     /**
-     * @var RedisCache
-     */
-    private $cache;
-
-    /**
      * @var ListTopVisitsArticles
      */
     private $listTopVisitsArticlesUseCase;
+
+    /**
+     * @var ListCurrentUserTopVisitsArticles
+     */
+    private $listCurrentUserTopVisitsArticles;
+
+    /**
+     * @var RedisCache
+     */
+    private $cache;
 
     public function __construct(
         \Twig_Environment $templating,
         ListArticles $useCase,
         ListTopVisitsArticles $listTopVisitsArticlesUseCase,
+        ListCurrentUserTopVisitsArticles $listCurrentUserTopVisitsArticles,
         RedisCache $cache
     ) {
         $this->template = $templating;
         $this->useCase = $useCase;
-        $this->cache = $cache;
         $this->listTopVisitsArticlesUseCase = $listTopVisitsArticlesUseCase;
+        $this->listCurrentUserTopVisitsArticles = $listCurrentUserTopVisitsArticles;
+        $this->cache = $cache;
     }
 
     public function get()
     {
         $articles = $this->cache->fetch('articles');
         $topVisitsArticles = $this->cache->fetch('topVisitsArticles');
+        $currentUserTopVisitsArticles = $this->cache->fetch('currentUserTopVisitsArticles');
 
         if(empty($articles)) {
             $articles = $this->useCase->execute();
@@ -58,14 +67,21 @@ class HomeController
             }
         }
 
+        if(empty($currentUserTopVisitsArticles)) {
+            $currentUserTopVisitsArticles = $this->listCurrentUserTopVisitsArticles->execute();
+
+            foreach ($currentUserTopVisitsArticles as $currentUserTopVisitsArticle) {
+                $this->cache->store('topVisitsArticles:' . $currentUserTopVisitsArticle->getId(), $currentUserTopVisitsArticle, self::REDIS_CACHE_TTL);
+            }
+        }
+
         return new Response($this->template->render(
             'home.twig',
             [
                 'articles' => $articles,
                 'topVisitsArticles' => $topVisitsArticles,
+                'currentUserTopVisitsArticles' => $currentUserTopVisitsArticles,
             ]
-        ), 200, array(
-            'Cache-Control' => 'no-cache, no-store, must-revalidate',
         ));
 
     }
