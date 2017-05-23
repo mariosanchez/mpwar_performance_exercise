@@ -58,7 +58,7 @@ class ArticleController
             $this->template->render('article.twig', ['article' => $article])
             , 200
             , array(
-                'Cache-Control' => 'public, max-age=31536000',
+                'Cache-Control' => 'public, max-age=31536000, min-fresh=60',
             )
         );
     }

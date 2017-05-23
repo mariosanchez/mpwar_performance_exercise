@@ -66,7 +66,12 @@ class EditArticleController
         }
 
         $article = $this->readArticle->execute($article_id);
-        return new Response($this->template->render('editArticle.twig', ['article' => $article]));
+        return new Response($this->template->render('editArticle.twig', ['article' => $article])
+            , 200
+            , array(
+                'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            )
+        );
     }
 
     public function post(Request $request)
@@ -79,6 +84,12 @@ class EditArticleController
 
         $this->cache->delete('articles:' . $request->get('article_id'));
 
-        return new RedirectResponse($this->url_generator->generate('article', ['article_id' => $request->get('article_id')]));
+        return new RedirectResponse(
+            $this->url_generator->generate('article', ['article_id' => $request->get('article_id')])
+            , 302
+            , array(
+                'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            )
+        );
     }
 }

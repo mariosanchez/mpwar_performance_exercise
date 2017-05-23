@@ -65,7 +65,7 @@ class HomeController
                 'topVisitsArticles' => $topVisitsArticles,
             ]
         ), 200, array(
-            'Cache-Control' => 'public, max-age=31536000',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
         ));
 
     }
