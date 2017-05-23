@@ -26,5 +26,5 @@ $app['orm.em.options'] = [
 ];
 
 $app['cdn'] = [
-  'url' => 'http://localhost/web/',
+  'url' => 'http://d24okgoz9huytu.cloudfront.net',
 ];
